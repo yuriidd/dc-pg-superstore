@@ -1,5 +1,3 @@
-
-
 --
 --
 -- === create table ship_modes
@@ -14,7 +12,7 @@ CREATE TABLE public.ship_modes (
 
 INSERT INTO public.ship_modes (ship_mode)
 SELECT DISTINCT ship_mode
-FROM stg.orders
+FROM raw.orders
 ;
 
 
@@ -32,7 +30,7 @@ CREATE TABLE public.order_priorities (
 
 INSERT INTO public.order_priorities (order_priority)
 SELECT DISTINCT ship_mode
-FROM stg.orders
+FROM raw.orders
 ;
 
 
@@ -81,13 +79,13 @@ CREATE TABLE public.products (
 -- ;
 
 -- Canon PC940 Copier
-UPDATE stg.orders
+UPDATE raw.orders
 SET product_container = 'Large Box'
 WHERE product_name = 'Canon PC940 Copier';
 
 INSERT INTO public.products (product_category, product_subcategory, product_name, product_container)
 SELECT DISTINCT product_category, product_subcategory, product_name, product_container
-FROM stg.orders
+FROM raw.orders
 ;
 
 
@@ -108,7 +106,7 @@ CREATE TABLE public.customers (
 
 INSERT INTO public.customers (customer_name, customer_segment)
 SELECT DISTINCT customer_name, customer_segment
-FROM stg.orders
+FROM raw.orders
 ;
 
 
@@ -128,7 +126,7 @@ CREATE TABLE public.regions (
 
 INSERT INTO public.regions (region)
 SELECT DISTINCT region
-FROM stg.orders
+FROM raw.orders
 ;
 
 
@@ -151,7 +149,7 @@ CREATE TABLE public.locations (
 
 INSERT INTO public.locations (zip_code, state, city, region_id)
 SELECT DISTINCT zip_code, state, city, r.region_id
-FROM stg.orders AS o
+FROM raw.orders AS o
 LEFT JOIN public.regions AS r 	ON o.region = r.region
 ;
 
@@ -174,10 +172,9 @@ CREATE TABLE public.managers (
 
 INSERT INTO public.managers (manager_name, region_id)
 SELECT DISTINCT manager, r.region_id
-FROM stg.managers AS u
+FROM raw.managers AS u
 LEFT JOIN public.regions AS r 	ON u.region = r.region
 ;
-
 
 
 --
@@ -244,7 +241,7 @@ SELECT
 	, discount
 	, shipping_cost
 	, product_base_margin
-FROM stg.orders AS o
+FROM raw.orders AS o
 LEFT JOIN public.order_priorities AS op	
 		ON o.order_priority = op.order_priority
 LEFT JOIN public.customers AS c 	
