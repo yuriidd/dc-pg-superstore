@@ -1,4 +1,11 @@
-# Postgres with Superstore database
+# Postgres with Superstore database in Docker
+
+## Clone repository
+
+```shell
+cd ~
+git clone git@github.com:yuriidd/dc-pg-superstore.git
+```
 
 ## Run
 
@@ -44,11 +51,11 @@ If you don't like `--rm` - don't use. I use it for autorelease unnamed volumes t
 
 Second run the same docker command - container doesn't stop after starting. As `pgdata` already exists there is no need to repeat database initialization.
 
-If you need to create database as new - just drop all in `./data` directory
+If you need to create database as new - just drop everything in `./data` directory
 
 ```shell
 $ pwd 
-/some-path/dc-pg-superstore
+~/dc-pg-superstore
 
 $ rm -rf data/* 
 ```
