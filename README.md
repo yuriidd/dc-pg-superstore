@@ -13,15 +13,15 @@ Go to `dc-pg-superstore` and run command.
   
 ```shell
 docker container run --rm -d --name pg16-superstor \
-    -e POSTGRES_USER=pguser1 \
-    -e POSTGRES_PASSWORD=pgpass123 \
-    -e POSTGRES_DB=superstore_db \
-    -e PGDATA=/var/lib/postgresql/data/pgdata \
-    -p 5432:5432 \
-    -v "$(pwd)"/pg-init.d:/docker-entrypoint-initdb.d \
-    -v "$(pwd)"/data:/var/lib/postgresql/data \
-    -v "$(pwd)"/csv:/csv \
-    postgres:16
+-e POSTGRES_USER=pguser1 \
+-e POSTGRES_PASSWORD=pgpass123 \
+-e POSTGRES_DB=superstore_db \
+-e PGDATA=/var/lib/postgresql/data/pgdata \
+-p 5432:5432 \
+-v "$(pwd)"/pg-init.d:/docker-entrypoint-initdb.d \
+-v "$(pwd)"/data:/var/lib/postgresql/data \
+-v "$(pwd)"/csv:/csv \
+postgres:16
 ```
 
 Tree:
@@ -82,6 +82,12 @@ Dockerfile or new image in dockerhub doesn't exempt you from mounting your volum
 
 # Links
 
-https://hub.docker.com/_/postgres/
+1. https://hub.docker.com/_/postgres/
 
-https://github.com/docker-library/docs/blob/master/postgres/README.md
+2. https://github.com/docker-library/docs/blob/master/postgres/README.md
+
+#### Configure another default docker network to avoid overlap 
+
+https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range 
+
+Or read [here](another-docker-network).
